@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "AdptArray.h"
-
 typedef struct AdptArray_
 {
     COPY_FUNC copy;
@@ -13,7 +12,7 @@ typedef struct AdptArray_
 }AdptArray;
 
 
-//function that create a new array 
+
 PAdptArray CreateAdptArray(COPY_FUNC copy, DEL_FUNC delete,PRINT_FUNC print){
     PAdptArray adapter=(PAdptArray)malloc(sizeof(AdptArray));
     if(adapter==NULL){
@@ -27,7 +26,6 @@ PAdptArray CreateAdptArray(COPY_FUNC copy, DEL_FUNC delete,PRINT_FUNC print){
     return adapter;
 
 }
-
 void DeleteAdptArray(PAdptArray adapter){
     for (int i = 0; i < adapter->size; i++)
     {
@@ -41,29 +39,32 @@ void DeleteAdptArray(PAdptArray adapter){
     free(adapter);
 
 }
-Result SetAdptArrayAt(PAdptArray adapter, int index, PElement element_new)
+
+
+Result SetAdptArrayAt(PAdptArray adapter, int index, PElement element)
 {
-	PElement* element1;
+	
 	if (adapter == NULL)
 		return FAIL;
 
 	if (index >adapter->size)
 	{
-		if ((element1 = (PElement*)calloc((index + 1), sizeof(PElement))) == NULL)
+        PElement* element_new;
+		if ((element_new = (PElement*)calloc((index + 1), sizeof(PElement))) == NULL)
         {
             return FAIL;
         }
 			
-		memcpy(element1, adapter->element,(adapter->size)* sizeof(PElement));
+		memcpy(element_new, adapter->element,(adapter->size)* sizeof(PElement));
 		free(adapter->element);
-		adapter->element = element1;
+		adapter->element = element_new;
         adapter->size=index+1;
 	}
 
 	if(adapter->element[index]!=NULL){
 	    adapter->delete((adapter->element)[index]);
     }
-	(adapter->element)[index] = adapter->copy(element_new);
+	(adapter->element)[index] = adapter->copy(element);
 
 	
 	return SUCCESS;
