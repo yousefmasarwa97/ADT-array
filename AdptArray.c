@@ -12,7 +12,7 @@ typedef struct AdptArray_
 }AdptArray;
 
 
-
+//create new array without size and that adapt his size 
 PAdptArray CreateAdptArray(COPY_FUNC copy, DEL_FUNC delete,PRINT_FUNC print){
     PAdptArray adapter=(PAdptArray)malloc(sizeof(AdptArray));
     if(adapter==NULL){
@@ -26,6 +26,8 @@ PAdptArray CreateAdptArray(COPY_FUNC copy, DEL_FUNC delete,PRINT_FUNC print){
     return adapter;
 
 }
+
+//free the memory from the object
 void DeleteAdptArray(PAdptArray adapter){
     for (int i = 0; i < adapter->size; i++)
     {
@@ -40,7 +42,7 @@ void DeleteAdptArray(PAdptArray adapter){
 
 }
 
-
+//save a copy of the element in the wanted pos
 Result SetAdptArrayAt(PAdptArray adapter, int index, PElement element)
 {
 	
@@ -70,6 +72,8 @@ Result SetAdptArrayAt(PAdptArray adapter, int index, PElement element)
 	return SUCCESS;
     
 }
+
+//return a copy of the elemnt in the wanted pos
 PElement GetAdptArrayAt(PAdptArray adapter, int index)
 {
      if(adapter->element[index]==NULL)
@@ -81,6 +85,7 @@ PElement GetAdptArrayAt(PAdptArray adapter, int index)
     return  elemntAt;
 }
 
+//return the size of the array
 int GetAdptArraySize(PAdptArray adapter){
     if(adapter==NULL){
         return -1;
@@ -88,7 +93,7 @@ int GetAdptArraySize(PAdptArray adapter){
     return adapter->size;
 }
 
-
+//print all the elements of the array
 void PrintDB(PAdptArray adapter){
     
     for (int i = 0; i < adapter->size ; i++)
