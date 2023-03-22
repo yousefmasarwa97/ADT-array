@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "AdptArray.h"
+
 typedef struct AdptArray_
 {
     COPY_FUNC copy;
@@ -12,7 +13,7 @@ typedef struct AdptArray_
 }AdptArray;
 
 
-
+//function that create a new array 
 PAdptArray CreateAdptArray(COPY_FUNC copy, DEL_FUNC delete,PRINT_FUNC print){
     PAdptArray adapter=(PAdptArray)malloc(sizeof(AdptArray));
     if(adapter==NULL){
@@ -26,6 +27,7 @@ PAdptArray CreateAdptArray(COPY_FUNC copy, DEL_FUNC delete,PRINT_FUNC print){
     return adapter;
 
 }
+
 void DeleteAdptArray(PAdptArray adapter){
     for (int i = 0; i < adapter->size; i++)
     {
